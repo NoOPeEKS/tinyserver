@@ -25,6 +25,10 @@ func handleConn(conn net.Conn) {
 	for i, param := range httpRequestLineParams {
 		log.Printf("Parameter %d: %s", i, param)
 	}
+
+	if httpRequestLineParams[0] != "GET" {
+		conn.Write([]byte("HTTP/1.1 405 Method Not Allowed\r\n\r\n Method not allowed"))
+	}
 }
 
 func main() {
